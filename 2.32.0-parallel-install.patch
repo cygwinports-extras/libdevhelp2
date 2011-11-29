@@ -1,0 +1,96 @@
+--- origsrc/devhelp-2.32.0/configure.ac	2010-09-27 15:33:57.000000000 -0500
++++ src/devhelp-2.32.0/configure.ac	2011-11-29 01:28:00.172824300 -0600
+@@ -92,7 +92,7 @@ AC_SUBST(ZLIB_CFLAGS)
+ AC_SUBST(ZLIB_LDFLAGS)
+ AC_SUBST(ZLIB_LIBS)
+ 
+-GETTEXT_PACKAGE=devhelp
++GETTEXT_PACKAGE=devhelp-2
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Package name for gettext])
+ AM_GLIB_GNU_GETTEXT
+--- origsrc/devhelp-2.32.0/data/Makefile.am	2010-08-30 08:09:31.000000000 -0500
++++ src/devhelp-2.32.0/data/Makefile.am	2011-11-29 01:44:09.437263100 -0600
+@@ -3,7 +3,7 @@ SUBDIRS = ui dtd icons
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libdevhelp-2.0.pc
+ 
+-assistantdir = $(datadir)/devhelp/assistant
++assistantdir = $(datadir)/devhelp-2/assistant
+ assistant_DATA = 		\
+ 	assistant.js		\
+ 	assistant.css
+@@ -19,7 +19,7 @@ schemas_in_files = devhelp.schemas.in
+ schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+ @INTLTOOL_SCHEMAS_RULE@
+ 
+-defaultsdir = $(datadir)/devhelp
++defaultsdir = $(datadir)/devhelp-2
+ defaults_DATA = devhelp.defaults
+ devhelp.defaults: devhelp.schemas.in
+ 	cp $(top_srcdir)/data/devhelp.schemas.in $(top_builddir)/data/devhelp.defaults
+--- origsrc/devhelp-2.32.0/data/dtd/Makefile.am	2010-07-02 16:02:22.000000000 -0500
++++ src/devhelp-2.32.0/data/dtd/Makefile.am	2011-11-29 01:01:28.668795500 -0600
+@@ -1,4 +1,4 @@
+-dtddir = $(datadir)/devhelp/dtd
++dtddir = $(datadir)/devhelp-2/dtd
+ dtd_DATA = 					\
+ 	devhelp-1.dtd
+ 
+--- origsrc/devhelp-2.32.0/data/ui/Makefile.am	2010-07-02 16:02:22.000000000 -0500
++++ src/devhelp-2.32.0/data/ui/Makefile.am	2011-11-29 01:01:04.100390300 -0600
+@@ -1,4 +1,4 @@
+-uidir = $(datadir)/devhelp/ui
++uidir = $(datadir)/devhelp-2/ui
+ ui_DATA = 				\
+ 	window.ui			\
+ 	devhelp.builder
+--- origsrc/devhelp-2.32.0/src/dh-assistant-view.c	2010-08-28 03:07:45.000000000 -0500
++++ src/devhelp-2.32.0/src/dh-assistant-view.c	2011-11-29 01:02:35.710630100 -0600
+@@ -306,11 +306,11 @@ dh_assistant_view_set_link (DhAssistantV
+                         }
+                 }
+ 
+-                stylesheet = dh_util_build_data_filename ("devhelp",
++                stylesheet = dh_util_build_data_filename ("devhelp-2",
+                                                           "assistant",
+                                                           "assistant.css",
+                                                           NULL);
+-                javascript = dh_util_build_data_filename ("devhelp",
++                javascript = dh_util_build_data_filename ("devhelp-2",
+                                                           "assistant",
+                                                           "assistant.js",
+                                                           NULL);
+--- origsrc/devhelp-2.32.0/src/dh-base.c	2010-08-30 08:09:31.000000000 -0500
++++ src/devhelp-2.32.0/src/dh-base.c	2011-11-29 01:02:53.093624300 -0600
+@@ -96,7 +96,7 @@ dh_base_init (DhBase *base)
+         gchar      *path;
+ 
+         conf = ige_conf_get ();
+-        path = dh_util_build_data_filename ("devhelp", "devhelp.defaults", NULL);
++        path = dh_util_build_data_filename ("devhelp-2", "devhelp.defaults", NULL);
+         ige_conf_add_defaults (conf, path);
+         g_free (path);
+ 
+--- origsrc/devhelp-2.32.0/src/dh-preferences.c	2010-08-02 09:30:17.000000000 -0500
++++ src/devhelp-2.32.0/src/dh-preferences.c	2011-11-29 01:03:31.850841100 -0600
+@@ -360,7 +360,7 @@ dh_preferences_show_dialog (GtkWindow *p
+ 		return;
+ 	}
+ 
+-        path = dh_util_build_data_filename ("devhelp", "ui",
++        path = dh_util_build_data_filename ("devhelp-2", "ui",
+                                             "devhelp.builder",
+                                             NULL);
+ 	builder = dh_util_builder_get_file (
+--- origsrc/devhelp-2.32.0/src/dh-window.c	2010-08-02 09:32:49.000000000 -0500
++++ src/devhelp-2.32.0/src/dh-window.c	2011-11-29 01:03:58.347356600 -0600
+@@ -1070,7 +1070,7 @@ window_populate (DhWindow *window)
+ 
+         priv = window->priv;
+ 
+-        path = dh_util_build_data_filename ("devhelp", "ui", "window.ui", NULL);
++        path = dh_util_build_data_filename ("devhelp-2", "ui", "window.ui", NULL);
+         gtk_ui_manager_add_ui_from_file (priv->manager,
+                                          path,
+                                          NULL);

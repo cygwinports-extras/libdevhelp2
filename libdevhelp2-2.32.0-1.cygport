@@ -1,0 +1,24 @@
+ORIG_PN="devhelp"
+inherit gnome2
+
+DESCRIPTION="GNOME API documentation browser"
+
+PATCH_URI="2.32.0-parallel-install.patch"
+
+DEPEND="gnome-common
+	pkgconfig(gconf-2.0)
+	pkgconfig(libwnck-1.0)
+	pkgconfig(webkit-1.0)
+	pkgconfig(zlib)"
+
+PKG_NAMES="libdevhelp2_1 libdevhelp2-devel"
+libdevhelp2_1_CONTENTS="usr/bin/cygdevhelp-2-1.dll usr/share/"
+libdevhelp2_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+
+MAKEOPTS+=" bin_PROGRAMS= "
+
+src_install() {
+	cd ${B}
+	cyginstall desktop_DATA=  plugin_DATA=  plugin_PYTHON=
+	rm -fr ${D}/etc/gconf/ ${D}/usr/share/icons/
+}
